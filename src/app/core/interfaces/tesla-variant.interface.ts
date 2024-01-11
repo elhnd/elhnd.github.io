@@ -1,8 +1,7 @@
 export interface TeslaVariant {
-    id: number;
-    description: string;
-    range: number;
-    speed: number;
-    price: number;
+    id          : number;
+    description : string;
+    range       : number;
+    speed       : number;
+    price       : number;
 }
-  
