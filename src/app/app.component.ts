@@ -1,22 +1,12 @@
-import {Component, OnInit, inject} from '@angular/core';
-import {AsyncPipe, JsonPipe} from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [AsyncPipe, JsonPipe, HttpClientModule, RouterModule],
+  imports: [RouterModule],
   templateUrl: './app.component.html',
 })
-export class AppComponent implements OnInit{
+export class AppComponent {
   name = 'Angular';
-
-  httpClient = inject(HttpClient);
-
-  ngOnInit(): void {
-      this.httpClient.get('/models').subscribe((date)=>{console.log(date);
-      })
-  }
-
 }

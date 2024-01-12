@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { TeslaService } from '../../core/services/tesla.service';
+import { Observable, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-tesla-config',
@@ -7,4 +9,17 @@ import { Component } from '@angular/core';
   templateUrl: './tesla-config.component.html',
   styleUrl: './tesla-config.component.scss'
 })
-export class TeslaConfigComponent {}
+export class TeslaConfigComponent {
+
+  teslaService      : TeslaService        = inject(TeslaService);
+  teslaModel        : Observable<string>  = this.teslaService.currentTeslaModel;
+
+  ngOnInit(): void {
+    this.teslaModel.pipe(
+      switchMap(model => this.teslaService.getOption(model))
+    ).subscribe(option => {
+      console.log(option);
+    });
+  }
+  
+}
