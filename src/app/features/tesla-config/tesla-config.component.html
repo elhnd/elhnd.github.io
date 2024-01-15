@@ -1,29 +1,29 @@
 <h2>Step 2: Select your config and options</h2>
-<div class="row">
-    <!-- <div class="col-4 mb-3">
-        <label for="configSelect" class="fs-5">Config:</label>
-        <select [(ngModel)]="teslaIdConfig" (change)="getRange(teslaIdConfig)" id="configSelect" class="form-select fs-5" aria-label="Configuration Select">
+    <div class="row">
+    <form [formGroup]="configForm" (change)="updateSelectedConfig()">
+        <div class="col-4 mb-3">
+            <label for="configSelect" class="fs-5">Config:</label>
+            <select formControlName="config" id="configSelect" class="form-select fs-5" aria-label="Configuration Select">
+                @for (config of configs; track $index) {
+                    <option [ngValue]="config">{{config.description}}</option>
+                }
+            </select>
+        </div>
 
-            @for (config of teslaConfig?.configs; track $index) {
-                <option [value]="config.id">{{config.description}}</option>
-            }
-        </select>
-    </div>
+        <div class="col-12 mb-3 fs-5">
+          @if (selectedConfig) {Range: {{selectedConfig.range}} - Max Speed: {{selectedConfig.speed}} - Cost: {{selectedConfig.price}}}
+        </div>
 
-    <div class="col-12 mb-3 fs-5">
-        Range: {{teslaVariant?.range}} - Max Speed: {{teslaVariant?.speed}} - Cost: {{teslaVariant?.price}}
-    </div>
+        <div class="col-12 mb-3 form-check" style="margin-left: 12px;">
+            <label class="form-check-label fs-5" for="includeTow">
+                Tow hitch ? <input formControlName="towHitch"  class="form-check-input" type="checkbox" id="includeTow">
+            </label>
+        </div>
 
-    <div class="col-12 mb-3 form-check" style="margin-left: 12px;">
-        <label class="form-check-label fs-5" for="includeTow">
-            Tow hitch ? <input  [(ngModel)]="towHitch" class="form-check-input" type="checkbox" [value]="teslaConfig?.towHitch" id="includeTow" name="includeTow">
-        </label>
-    </div>
-
-    <div class="col-12 mb-3 form-check" style="margin-left: 12px;">
-        <label class="form-check-label fs-5" for="includeYoke">
-            Yoke steering wheel ? <input [(ngModel)]="yoke" class="form-check-input" type="checkbox" [value]="teslaConfig?.yoke" id="includeYoke" name="includeYoke">
-        </label>
-    </div> -->
+        <div class="col-12 mb-3 form-check" style="margin-left: 12px;">
+            <label class="form-check-label fs-5" for="includeYoke">
+                Yoke steering wheel ? <input formControlName="yoke" class="form-check-input" type="checkbox" id="includeYoke">
+            </label>
+        </div>
+    </form>
 </div>
-

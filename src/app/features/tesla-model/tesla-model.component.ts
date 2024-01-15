@@ -1,30 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { TeslaModel } from '../../core/interfaces/tesla-model.interface';
 import { TeslaService } from '../../core/services/tesla.service';
 import { CommonModule } from '@angular/common';
+import { TeslaStateService } from '../../core/services/tesla-state.service';
+import { TeslaColor } from '../../core/interfaces/tesla-color.interface';
 
 
 @Component({
   selector: 'app-tesla-model',
   standalone: true,
-imports: [CommonModule ,ReactiveFormsModule],
-  template: `
-    <form [formGroup]="modelForm">
-      <select formControlName="selectedModel">
-        <option *ngFor="let model of models" [ngValue]="model">{{ model.description }}</option>
-      </select>
-
-      <select formControlName="selectedColor" *ngIf="selectedModel?.colors">
-        <option *ngFor="let color of selectedModel?.colors" [ngValue]="color">{{ color.description }}</option>
-      </select>
-    </form>
-  `
+  imports: [CommonModule ,ReactiveFormsModule],
+  styleUrl: './tesla-model.component.scss',
+  templateUrl: './tesla-model.component.html'
 })
 export class TeslaModelComponent implements OnInit {
   modelForm: FormGroup;
   models?: TeslaModel[];
   selectedModel!: TeslaModel | null;
+
+  teslaState = inject(TeslaStateService);
 
   constructor(private teslaService: TeslaService) {
     this.modelForm = new FormGroup({
@@ -40,10 +35,15 @@ export class TeslaModelComponent implements OnInit {
         this.selectedModel = value;
         if (value) {
           this.modelForm.get('selectedColor')!.enable();
-        } else {
-          this.modelForm.get('selectedColor')!.disable();
         }
       });
     });
+  }
+
+  updateSelectedModel() {
+    const teslaFormValue    = this.modelForm.value;
+    const color: TeslaColor = teslaFormValue.selectedColor;
+    const model: TeslaModel = teslaFormValue.selectedModel;
+    this.teslaState.updateModelState({code: model.code, description: model.description, color: color});
   }
 }
