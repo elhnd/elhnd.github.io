@@ -1,45 +1,49 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { TeslaService } from '../../core/services/tesla.service';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { TeslaModel } from '../../core/interfaces/tesla-model.interface';
-import { FormsModule } from '@angular/forms';
-import { TeslaColor } from '../../core/interfaces/tesla-color.interface';
+import { TeslaService } from '../../core/services/tesla.service';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-tesla-model',
   standalone: true,
-  imports: [ FormsModule ],
-  templateUrl: './tesla-model.component.html',
-  styleUrl: './tesla-model.component.scss'
+imports: [CommonModule ,ReactiveFormsModule],
+  template: `
+    <form [formGroup]="modelForm">
+      <select formControlName="selectedModel">
+        <option *ngFor="let model of models" [ngValue]="model">{{ model.description }}</option>
+      </select>
+
+      <select formControlName="selectedColor" *ngIf="selectedModel?.colors">
+        <option *ngFor="let color of selectedModel?.colors" [ngValue]="color">{{ color.description }}</option>
+      </select>
+    </form>
+  `
 })
-export class TeslaModelComponent implements OnInit{
+export class TeslaModelComponent implements OnInit {
+  modelForm: FormGroup;
+  models?: TeslaModel[];
+  selectedModel!: TeslaModel | null;
 
-  teslaModels     : TeslaModel[]  = [];
-  teslaModel?     : TeslaModel;
-  teslaCodeModel!  : string        ;
-  teslaColorModel : string        = "";
-  teslaColors     : TeslaColor[]  = [];
-  teslaService    : TeslaService  = inject(TeslaService);
-
-  ngOnInit(): void {
-    this.getModels()
+  constructor(private teslaService: TeslaService) {
+    this.modelForm = new FormGroup({
+      selectedModel: new FormControl(''),
+      selectedColor: new FormControl({ value: '', disabled: true })
+    });
   }
 
-  getModels () {
-    this.teslaService.getModels()
-    .subscribe(models =>{
-      this.teslaModels = models;
-    })
-  }
-
-  getColor(code: string) {
-    this.teslaModel   = this.teslaModels.find(model => model.code === code);
-    this.teslaColors  = this.teslaModel ? this.teslaModel.colors : [];
-    this.teslaService.changeModel(code);
-  }
-
-  getImage(code: string){    
-    const image = this.teslaModel ? this.teslaModel.colors.find(color => color.code === code): null;
-    const source = image ? image.image : "";
-    this.teslaService.changeImage(source);
+  ngOnInit() {
+    this.teslaService.getModels().subscribe(data => {
+      this.models = data;
+      this.modelForm.get('selectedModel')!.valueChanges.subscribe(value => {
+        this.selectedModel = value;
+        if (value) {
+          this.modelForm.get('selectedColor')!.enable();
+        } else {
+          this.modelForm.get('selectedColor')!.disable();
+        }
+      });
+    });
   }
 }

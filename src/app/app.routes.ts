@@ -16,10 +16,6 @@ export const routes: Routes = [
             {
                 path: 'summary', 
                 loadComponent: () => import('./features/summary/summary.component').then(c=>c.SummaryComponent),
-                canActivate: [(Tesla: TeslaModelComponent)=>Tesla.teslaCodeModel],
-                data : {
-                    teslaModel: (Tesla: TeslaModelComponent) => Tesla.teslaCodeModel.toString()
-                }
             }
         ]
     }

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TeslaService } from '../../core/services/tesla.service';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-summary',
@@ -13,10 +13,10 @@ import { Observable, combineLatest } from 'rxjs';
 export class SummaryComponent implements OnInit {
 
   teslaService      : TeslaService        = inject(TeslaService);
-  teslaModel        : Observable<string>  = this.teslaService.currentTeslaModel;
+
+
 
   ngOnInit(): void {
-    
   }
 
 }

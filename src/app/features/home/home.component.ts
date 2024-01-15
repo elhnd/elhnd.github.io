@@ -21,5 +21,4 @@ import { Observable } from 'rxjs';
 export class HomeComponent {
 
   teslaService      : TeslaService        = inject(TeslaService);
-  teslaImageSource  : Observable<string>  = this.teslaService.currentTeslaImage;
 }

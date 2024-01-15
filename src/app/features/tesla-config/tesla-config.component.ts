@@ -1,25 +1,21 @@
 import { Component, inject } from '@angular/core';
 import { TeslaService } from '../../core/services/tesla.service';
-import { Observable, switchMap } from 'rxjs';
+import { Observable, config, switchMap } from 'rxjs';
+import { TeslaExtras } from '../../core/interfaces/tesla-extras.interface';
+import { FormsModule } from '@angular/forms';
+import { TeslaVariant } from '../../core/interfaces/tesla-variant.interface';
 
 @Component({
   selector: 'app-tesla-config',
   standalone: true,
-  imports: [],
+  imports: [ FormsModule ],
   templateUrl: './tesla-config.component.html',
   styleUrl: './tesla-config.component.scss'
 })
 export class TeslaConfigComponent {
 
-  teslaService      : TeslaService        = inject(TeslaService);
-  teslaModel        : Observable<string>  = this.teslaService.currentTeslaModel;
+    teslaService      : TeslaService        = inject(TeslaService);
 
-  ngOnInit(): void {
-    this.teslaModel.pipe(
-      switchMap(model => this.teslaService.getOption(model))
-    ).subscribe(option => {
-      console.log(option);
-    });
-  }
-  
+    ngOnInit(): void {
+    }
 }
