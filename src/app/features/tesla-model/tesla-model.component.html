@@ -1,21 +1,20 @@
+
 <h2>Step 1: Choose your Model and Color</h2>
 <div>
+  <form [formGroup]="modelForm">
     <div class="col-4" >
         <label for="modelSelect" class="fs-5">Model :</label>
-        <select [(ngModel)]="teslaCodeModel" (change)="getColor(teslaCodeModel)" id="modelSelect" class="form-select form-select-lg mb-3 fs-5" aria-label=".form-select-lg example">
-            <!-- <option selected>Select a model</option> -->
-            @for (model of teslaModels; track $index) {
-                <option value={{model.code}}>{{model.description}}</option>
-            }
+        <select formControlName="selectedModel" id="modelSelect" class="form-select form-select-lg mb-3 fs-5" aria-label=".form-select-lg example">
+            <option selected>Select a model</option>
+            <option *ngFor="let model of models" [ngValue]="model">{{ model.description }}</option>
         </select>
     </div>
-    <div class="col-4">
-        <label for="colorSelect" class="fs-5">Color :</label>
-        <select [(ngModel)]="teslaColorModel" (change)="getImage(teslaColorModel)" id="colorSelect" class="form-select form-select-lg mb-3 fs-5" aria-label=".form-select-lg example">
-            <!-- <option selected>Select a color</option> -->
-            @for (color of teslaColors; track $index) {
-                <option value={{color.code}}>{{color.description}}</option>
-            }
-          </select>
+    <div class="col-4" *ngIf="selectedModel">
+      <label for="colorSelect" class="fs-5">Color :</label>
+      <select (change)="updateSelectedModel()" formControlName="selectedColor"  id="colorSelect" class="form-select form-select-lg mb-3 fs-5" aria-label=".form-select-lg example">
+        <option selected>Select a color</option>
+        <option *ngFor="let color of selectedModel?.colors" [ngValue]="color">{{ color.description }}</option>
+      </select>
     </div>
+  </form>
 </div>

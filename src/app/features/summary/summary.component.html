@@ -1,50 +1,55 @@
 <h2>Step 3: Summary</h2>
 <div class="col-lg-12 col-sm-5" >
-    <h4>Your Tesla Cybertruck</h4>
+    <h4>Your Tesla {{summary.model.description}}</h4>
     <table class="table table-clear table-custom">
         <tbody>
             <tr>
                 <td class="left">
-                    <strong>Dual Motor All-Wheel Drive</strong>
+                    <strong>{{ summary.config.config?.description}}</strong>
                 </td>
-                <td class="right">$79,990.00</td>
+                <td class="right">{{ summary.config.config?.price | currency:'USD'}}</td>
             </tr>
             <tr>
                 <td class="left">
                     <strong>Range</strong>
                 </td>
-                <td class="right">340 miles</td>
+                <td class="right">{{ summary.config.config?.range}} miles</td>
             </tr>
             <tr>
                 <td class="left">
                     <strong>Max Speed</strong>
                 </td>
-                <td class="right">112</td>
+                <td class="right">{{ summary.config.config?.speed}}</td>
             </tr>
             <tr>
                 <td class="left">
-                    <strong>Satin Black Color</strong>
+                    <strong>{{summary.model.color?.description}}</strong>
                 </td>
-                <td class="right">$6,500.00</td>
+                <td class="right">{{ summary.model.color?.price | currency:'USD'}}</td>
             </tr>
-            <tr>
-                <td class="left">
-                    <strong>Tow Hitch Package</strong>
-                </td>
-                <td class="right">$1,000.00</td>
-            </tr>
-            <tr>
-                <td class="left">
-                    <strong>Yoke Package</strong>
-                </td>
-                <td class="right">$1,000.00</td>
-            </tr>
+            @if (summary.towHitchPrice) {
+                <tr>
+                    <td class="left">
+                        <strong>Tow Hitch Package</strong>
+                    </td>
+                    <td class="right">{{summary.towHitchPrice | currency:'USD'}}</td>
+                </tr>
+            }
+            @if (summary.yokPrice) {
+                <tr>
+                    <td class="left">
+                        <strong>Yoke Package</strong>
+                    </td>
+                    <td class="right">{{summary.yokPrice | currency:'USD'}}</td>
+                </tr>
+            }
+            
             <tr>
                 <td class="left">
                     <strong>TOTAL COST</strong>
                 </td>
                 <td class="right">
-                    <strong>$87,490.00</strong>
+                    <strong>{{ summary.total | currency:'USD'}}</strong>
                 </td>
             </tr>
         </tbody>

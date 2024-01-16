@@ -1,45 +1,49 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { TeslaService } from '../../core/services/tesla.service';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { TeslaModel } from '../../core/interfaces/tesla-model.interface';
-import { FormsModule } from '@angular/forms';
+import { TeslaService } from '../../core/services/tesla.service';
+import { CommonModule } from '@angular/common';
+import { TeslaStateService } from '../../core/services/tesla-state.service';
 import { TeslaColor } from '../../core/interfaces/tesla-color.interface';
+
 
 @Component({
   selector: 'app-tesla-model',
   standalone: true,
-  imports: [ FormsModule ],
-  templateUrl: './tesla-model.component.html',
-  styleUrl: './tesla-model.component.scss'
+  imports: [CommonModule ,ReactiveFormsModule],
+  styleUrl: './tesla-model.component.scss',
+  templateUrl: './tesla-model.component.html'
 })
-export class TeslaModelComponent implements OnInit{
+export class TeslaModelComponent implements OnInit {
+  modelForm: FormGroup;
+  models?: TeslaModel[];
+  selectedModel!: TeslaModel | null;
 
-  teslaModels     : TeslaModel[]  = [];
-  teslaModel?     : TeslaModel;
-  teslaCodeModel!  : string        ;
-  teslaColorModel : string        = "";
-  teslaColors     : TeslaColor[]  = [];
-  teslaService    : TeslaService  = inject(TeslaService);
+  teslaState = inject(TeslaStateService);
 
-  ngOnInit(): void {
-    this.getModels()
+  constructor(private teslaService: TeslaService) {
+    this.modelForm = new FormGroup({
+      selectedModel: new FormControl(''),
+      selectedColor: new FormControl({ value: '', disabled: true })
+    });
   }
 
-  getModels () {
-    this.teslaService.getModels()
-    .subscribe(models =>{
-      this.teslaModels = models;
-    })
+  ngOnInit() {
+    this.teslaService.getModels().subscribe(data => {
+      this.models = data;
+      this.modelForm.get('selectedModel')!.valueChanges.subscribe(value => {
+        this.selectedModel = value;
+        if (value) {
+          this.modelForm.get('selectedColor')!.enable();
+        }
+      });
+    });
   }
 
-  getColor(code: string) {
-    this.teslaModel   = this.teslaModels.find(model => model.code === code);
-    this.teslaColors  = this.teslaModel ? this.teslaModel.colors : [];
-    this.teslaService.changeModel(code);
-  }
-
-  getImage(code: string){    
-    const image = this.teslaModel ? this.teslaModel.colors.find(color => color.code === code): null;
-    const source = image ? image.image : "";
-    this.teslaService.changeImage(source);
+  updateSelectedModel() {
+    const teslaFormValue    = this.modelForm.value;
+    const color: TeslaColor = teslaFormValue.selectedColor;
+    const model: TeslaModel = teslaFormValue.selectedModel;
+    this.teslaState.updateModelState({code: model.code, description: model.description, color: color});
   }
 }

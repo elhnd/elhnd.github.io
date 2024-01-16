@@ -1,22 +1,23 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { TeslaService } from '../../core/services/tesla.service';
+import { Component, OnInit, inject } from '@angular/core';
+import { AsyncPipe, CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Summary, TeslaStateService } from '../../core/services/tesla-state.service';
 import { Observable, combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-summary',
   standalone: true,
-  imports: [],
-  templateUrl: './summary.component.html',
-  styleUrl: './summary.component.scss'
+  imports: [ CommonModule, ReactiveFormsModule, AsyncPipe ],
+  styleUrl: './summary.component.scss',
+  templateUrl: './summary.component.html' 
 })
 export class SummaryComponent implements OnInit {
 
-  teslaService      : TeslaService        = inject(TeslaService);
-  teslaModel        : Observable<string>  = this.teslaService.currentTeslaModel;
+  teslaState = inject(TeslaStateService);
+  summary!: Summary;
 
-  ngOnInit(): void {
-    
+  ngOnInit() {
+    this.teslaState.updateSummary()
+    .subscribe(data => this.summary = data);
   }
-
 }
