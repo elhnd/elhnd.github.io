@@ -1,8 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { switchMap } from 'rxjs';
 import { TeslaVariant } from '../../core/interfaces';
 import { SelectedConfig, TeslaService, TeslaStateService } from '../../core/services';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-tesla-config',
@@ -12,12 +13,14 @@ import { SelectedConfig, TeslaService, TeslaStateService } from '../../core/serv
   templateUrl: './tesla-config.component.html'
 })
 export class TeslaConfigComponent implements OnInit {
-  configForm: FormGroup;
-  configs?: TeslaVariant[];
-  selectedConfig!: TeslaVariant;
-
-  private teslaService = inject(TeslaService);
+  
+  private teslaService      = inject(TeslaService);
   private teslaStateService = inject(TeslaStateService); 
+  private destroyRef        = inject(DestroyRef);
+
+  configForm      : FormGroup;
+  configs?        : TeslaVariant[];
+  selectedConfig! : TeslaVariant;
 
   constructor() {
     this.configForm = new FormGroup({
@@ -28,10 +31,15 @@ export class TeslaConfigComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getOption();
+  }
+
+  getOption(){
     this.teslaStateService.selectedModelState$
     .pipe(
       switchMap(state => this.teslaService.getOption(state.code as string))
     )
+    .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(options => {
       this.configs = options.configs;      
       this.configForm.patchValue(options);

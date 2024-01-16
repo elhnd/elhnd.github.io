@@ -15,7 +15,7 @@ import { TeslaService, TeslaStateService } from '../../core/services';
     AsyncPipe
   ],
   templateUrl: './tesla-view.component.html',
-  styleUrl: './tesla-view.component.scss'
+  styleUrl: './tesla-view.component.scss',
 })
 export class TeslaViewComponent implements OnInit{
 
