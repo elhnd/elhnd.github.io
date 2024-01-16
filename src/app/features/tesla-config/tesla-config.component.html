@@ -4,6 +4,7 @@
         <div class="col-4 mb-3">
             <label for="configSelect" class="fs-5">Config:</label>
             <select formControlName="config" id="configSelect" class="form-select fs-5" aria-label="Configuration Select">
+                <option selected>Select a config</option>
                 @for (config of configs; track $index) {
                     <option [ngValue]="config">{{config.description}}</option>
                 }

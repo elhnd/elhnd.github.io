@@ -1,1 +1,7 @@
-<p>tesla-view works!</p>
+<div class="container mt-5">
+    <app-stepper/>
+    <div style="height: 310px;">
+      <router-outlet></router-outlet>
+    </div>
+    <app-image-viewer [image]="image" />
+</div>

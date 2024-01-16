@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { TeslaService } from '../../core/services/tesla.service';
-import { SelectedConfig, TeslaStateService } from '../../core/services/tesla-state.service';
-import { TeslaVariant } from '../../core/interfaces/tesla-variant.interface';
-import { CommonModule } from '@angular/common';
 import { switchMap } from 'rxjs';
-
+import { TeslaVariant } from '../../core/interfaces';
+import { SelectedConfig, TeslaService, TeslaStateService } from '../../core/services';
 
 @Component({
   selector: 'app-tesla-config',
   standalone: true,
-  imports: [ CommonModule, ReactiveFormsModule ],
+  imports: [ ReactiveFormsModule ],
   styleUrl:'./tesla-config.component.scss',
   templateUrl: './tesla-config.component.html'
 })

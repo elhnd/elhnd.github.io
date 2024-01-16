@@ -1,16 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { TeslaModel } from '../../core/interfaces/tesla-model.interface';
 import { TeslaService } from '../../core/services/tesla.service';
-import { CommonModule } from '@angular/common';
 import { TeslaStateService } from '../../core/services/tesla-state.service';
-import { TeslaColor } from '../../core/interfaces/tesla-color.interface';
-
+import { TeslaColor, TeslaModel } from '../../core/interfaces';
 
 @Component({
   selector: 'app-tesla-model',
   standalone: true,
-  imports: [CommonModule ,ReactiveFormsModule],
+  imports: [ ReactiveFormsModule ],
   styleUrl: './tesla-model.component.scss',
   templateUrl: './tesla-model.component.html'
 })

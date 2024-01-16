@@ -1,13 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Summary, TeslaStateService } from '../../core/services/tesla-state.service';
-import { Observable, combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-summary',
   standalone: true,
-  imports: [ CommonModule, ReactiveFormsModule, AsyncPipe ],
+  imports: [ ReactiveFormsModule, AsyncPipe, CurrencyPipe ],
   styleUrl: './summary.component.scss',
   templateUrl: './summary.component.html' 
 })
