@@ -4,14 +4,13 @@ import { TeslaStateService } from '../services/tesla-state.service';
 import { map } from 'rxjs';
 
 
-export const SteeperGuard = () => {
+export const Step3Guard = () => {
 
     const teslaState = inject(TeslaStateService);
 
-    return teslaState.selectedModelState$.pipe(
-        map(model => {
-          if (!model) {
-            //this.router.navigate(['/select-model']); // Redirige vers la page de sélection de modèle si aucun modèle n'est sélectionné
+    return teslaState.selectedConfigState$.pipe(
+        map(config => {
+          if (!config.config) {
             return false;
           }
           return true;
