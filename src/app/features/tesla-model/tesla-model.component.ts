@@ -16,9 +16,10 @@ export class TeslaModelComponent implements OnInit {
   models?: TeslaModel[];
   selectedModel!: TeslaModel | null;
 
-  teslaState = inject(TeslaStateService);
-
-  constructor(private teslaService: TeslaService) {
+  private teslaState = inject(TeslaStateService);
+  private teslaService = inject(TeslaService);
+  
+  constructor() {
     this.modelForm = new FormGroup({
       selectedModel: new FormControl(''),
       selectedColor: new FormControl({ value: '', disabled: true })

@@ -19,11 +19,11 @@ import { TeslaService, TeslaStateService } from '../../core/services';
 })
 export class TeslaViewComponent implements OnInit{
 
-  teslaService      : TeslaService        = inject(TeslaService);
-  teslaState = inject(TeslaStateService);
+  teslaService  = inject(TeslaService);
+  teslaState    = inject(TeslaStateService);
   image?: string;
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
       this.teslaState.selectedModelState$
       .subscribe((data) => this.image = data.color?.image);
   }

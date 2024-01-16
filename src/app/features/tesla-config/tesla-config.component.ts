@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { switchMap } from 'rxjs';
 import { TeslaVariant } from '../../core/interfaces';
@@ -16,7 +16,10 @@ export class TeslaConfigComponent implements OnInit {
   configs?: TeslaVariant[];
   selectedConfig!: TeslaVariant;
 
-  constructor(private teslaService: TeslaService, private teslaStateService: TeslaStateService) {
+  private teslaService = inject(TeslaService);
+  private teslaStateService = inject(TeslaStateService); 
+
+  constructor() {
     this.configForm = new FormGroup({
       config: new FormControl(''),
       towHitch: new FormControl(false),

@@ -2,10 +2,9 @@ import { HttpRequest, HttpInterceptorFn,HttpHandlerFn } from '@angular/common/ht
 import { catchError, throwError } from 'rxjs';
   
   export const errorsInterceptor: HttpInterceptorFn = (
-    request: HttpRequest<unknown>,
+    request,
     next: HttpHandlerFn
-  ) => {
-
+  ) => {    
     return next(request).pipe(
         catchError((error) => {
             alert(error.message)

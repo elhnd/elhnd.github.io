@@ -14,12 +14,16 @@ export const routes: Routes = [
             {
                 path: 'config', 
                 loadComponent: () => import('./features/tesla-config/tesla-config.component').then(c=>c.TeslaConfigComponent),
-                canActivate: [() => Step2Guard()],
+                // canActivate: [() => Step2Guard()],
             },
             {
                 path: 'summary', 
                 loadComponent: () => import('./features/summary/summary.component').then(c=>c.SummaryComponent),
                 canActivate: [() => Step3Guard()],
+            },
+            {   
+                path: '**',
+                loadComponent: () => import('./features/not-found-page/not-found-page.component').then(c=>c.NotFoundPageComponent)
             }
         ]
     }
