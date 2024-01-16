@@ -6,14 +6,14 @@ export const routes: Routes = [
 
     {
         path:'',
-        loadComponent: () => import('./features/tesla-view/tesla-view.component').then(c => c.TeslaViewComponent),
+        loadComponent: () => import('./features/car-view/car-view.component').then(c => c.CarViewComponent),
         children: [
             {
-                path: '', loadComponent: () => import('./features/tesla-model/tesla-model.component').then(c=>c.TeslaModelComponent)
+                path: '', loadComponent: () => import('./features/car-model/car-model.component').then(c=>c.CarModelComponent)
             },
             {
                 path: 'config', 
-                loadComponent: () => import('./features/tesla-config/tesla-config.component').then(c=>c.TeslaConfigComponent),
+                loadComponent: () => import('./features/car-config/car-config.component').then(c=>c.CarConfigComponent),
                 // canActivate: [() => Step2Guard()],
             },
             {

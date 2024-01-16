@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
-import { TeslaColor } from '../interfaces/tesla-color.interface';
-import { TeslaVariant } from '../interfaces/tesla-variant.interface';
+import { CarColor } from '../interfaces/car-color.interface';
+import { CarVariant } from '../interfaces/car-variant.interface';
 
 export interface SelectedModel {
   code        : string      | null;
   description : string      | null;
-  color       : TeslaColor  | null;
+  color       : CarColor  | null;
 }
 
 export interface SelectedConfig {
-  config      : TeslaVariant | null;
+  config      : CarVariant | null;
   towHitch    : boolean      | null;
   yoke        : boolean      | null;
 }
@@ -26,7 +26,7 @@ export interface Summary {
 @Injectable({
   providedIn: 'root'
 })
-export class TeslaStateService {
+export class CarStateService {
   private selectedModelState = new BehaviorSubject<SelectedModel>({
     code        : null,
     description : null,

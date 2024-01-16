@@ -1,13 +1,13 @@
 import { inject } from '@angular/core';
-import { TeslaStateService } from '../services/tesla-state.service';
+import { CarStateService } from '../services/car-state.service';
 import { map } from 'rxjs';
 
 
 export const Step3Guard = () => {
 
-    const teslaState = inject(TeslaStateService);
+    const carState = inject(CarStateService);
 
-    return teslaState.selectedConfigState$.pipe(
+    return carState.selectedConfigState$.pipe(
         map(config => {
           if (!config.config) {
             alert("Select a config car before moving to step 3");

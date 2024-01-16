@@ -1,13 +1,13 @@
 import { inject } from '@angular/core';
-import { TeslaStateService } from '../services/tesla-state.service';
+import { CarStateService } from '../services/car-state.service';
 import { map } from 'rxjs';
 
 
 export const Step2Guard = () => {
 
-    const teslaState = inject(TeslaStateService);
+    const carState = inject(CarStateService);
 
-    return teslaState.selectedModelState$.pipe(
+    return carState.selectedModelState$.pipe(
         map(model => {
           if (!model.code) {
             alert("Select a car model and color before moving to step 2");

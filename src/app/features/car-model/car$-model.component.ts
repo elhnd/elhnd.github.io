@@ -1,26 +1,26 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { TeslaService } from '../../core/services/tesla.service';
-import { TeslaStateService } from '../../core/services/tesla-state.service';
-import { TeslaColor, TeslaModel } from '../../core/interfaces';
+import { CarService } from '../../core/services/car.service';
+import { CarStateService } from '../../core/services/car-state.service';
+import { CarColor, CarModel } from '../../core/interfaces';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-tesla-model',
+  selector: 'app-car-model',
   standalone: true,
   imports: [ ReactiveFormsModule ],
-  styleUrl: './tesla-model.component.scss',
-  templateUrl: './tesla-model.component.html',
+  styleUrl: './car-model.component.scss',
+  templateUrl: './car-model.component.html',
 })
-export class TeslaModelComponent implements OnInit {
+export class CarModelComponent implements OnInit {
 
-  private teslaState    = inject(TeslaStateService);
-  private teslaService  = inject(TeslaService);
+  private carState    = inject(CarStateService);
+  private carService  = inject(CarService);
   private destroyRef    = inject(DestroyRef);
 
   modelForm     : FormGroup;
-  models?       : TeslaModel[];
-  selectedModel!: TeslaModel | null;
+  models?       : CarModel[];
+  selectedModel!: CarModel | null;
 
   constructor() {
     this.modelForm = new FormGroup({
@@ -34,7 +34,7 @@ export class TeslaModelComponent implements OnInit {
   }
 
   getModels () {
-    this.teslaService.getModels()
+    this.carService.getModels()
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(data => {
       this.models = data;
@@ -49,9 +49,9 @@ export class TeslaModelComponent implements OnInit {
   }
 
   updateSelectedModel() {
-    const teslaFormValue    = this.modelForm.value;
-    const color: TeslaColor = teslaFormValue.selectedColor;
-    const model: TeslaModel = teslaFormValue.selectedModel;
-    this.teslaState.updateModelState({code: model.code, description: model.description, color: color});
+    const carFormValue    = this.modelForm.value;
+    const color: CarColor = carFormValue.selectedColor;
+    const model: CarModel = carFormValue.selectedModel;
+    this.carState.updateModelState({code: model.code, description: model.description, color: color});
   }
 }

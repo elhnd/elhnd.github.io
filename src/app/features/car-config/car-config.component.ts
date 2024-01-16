@@ -1,26 +1,26 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { switchMap } from 'rxjs';
-import { TeslaVariant } from '../../core/interfaces';
-import { SelectedConfig, TeslaService, TeslaStateService } from '../../core/services';
+import { CarVariant } from '../../core/interfaces';
+import { SelectedConfig, CarService, CarStateService } from '../../core/services';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-tesla-config',
+  selector: 'app-car-config',
   standalone: true,
   imports: [ ReactiveFormsModule ],
-  styleUrl:'./tesla-config.component.scss',
-  templateUrl: './tesla-config.component.html'
+  styleUrl:'./car-config.component.scss',
+  templateUrl: './car-config.component.html'
 })
-export class TeslaConfigComponent implements OnInit {
+export class CarConfigComponent implements OnInit {
   
-  private teslaService      = inject(TeslaService);
-  private teslaStateService = inject(TeslaStateService); 
+  private carService      = inject(CarService);
+  private carStateService = inject(CarStateService); 
   private destroyRef        = inject(DestroyRef);
 
   configForm      : FormGroup;
-  configs?        : TeslaVariant[];
-  selectedConfig! : TeslaVariant;
+  configs?        : CarVariant[];
+  selectedConfig! : CarVariant;
 
   constructor() {
     this.configForm = new FormGroup({
@@ -35,9 +35,9 @@ export class TeslaConfigComponent implements OnInit {
   }
 
   getOption(){
-    this.teslaStateService.selectedModelState$
+    this.carStateService.selectedModelState$
     .pipe(
-      switchMap(state => this.teslaService.getOption(state.code as string))
+      switchMap(state => this.carService.getOption(state.code as string))
     )
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(options => {
@@ -48,6 +48,6 @@ export class TeslaConfigComponent implements OnInit {
 
   updateSelectedConfig() {
     this.selectedConfig = this.configForm.value.config;
-    this.teslaStateService.updateConfigState(this.configForm.value as SelectedConfig);
+    this.carStateService.updateConfigState(this.configForm.value as SelectedConfig);
   }
 }

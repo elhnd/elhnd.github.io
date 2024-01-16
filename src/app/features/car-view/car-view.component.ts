@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { StepperComponent } from '../../shared/components/stepper/stepper.component';
 import { ImageViewerComponent } from '../../shared/components/image-viewer/image-viewer.component';
 import { AsyncPipe } from '@angular/common';
-import { TeslaService, TeslaStateService } from '../../core/services';
+import { CarService, CarStateService } from '../../core/services';
 
 @Component({
   selector: 'app-home',
@@ -14,17 +14,17 @@ import { TeslaService, TeslaStateService } from '../../core/services';
     ImageViewerComponent,
     AsyncPipe
   ],
-  templateUrl: './tesla-view.component.html',
-  styleUrl: './tesla-view.component.scss',
+  templateUrl: './car-view.component.html',
+  styleUrl: './car-view.component.scss',
 })
-export class TeslaViewComponent implements OnInit{
+export class CarViewComponent implements OnInit{
 
-  teslaService  = inject(TeslaService);
-  teslaState    = inject(TeslaStateService);
+  carService  = inject(CarService);
+  carState    = inject(CarStateService);
   image?: string;
 
   ngOnInit(): void { 
-      this.teslaState.selectedModelState$
+      this.carState.selectedModelState$
       .subscribe((data) => this.image = data.color?.image);
   }
 }
