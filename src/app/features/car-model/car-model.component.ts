@@ -16,7 +16,7 @@ export class CarModelComponent implements OnInit {
 
   private carState    = inject(CarStateService);
   private carService  = inject(CarService);
-  private destroyRef    = inject(DestroyRef);
+  private destroyRef  = inject(DestroyRef);
 
   modelForm     : FormGroup;
   models?       : CarModel[];

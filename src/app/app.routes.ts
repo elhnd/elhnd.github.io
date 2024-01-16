@@ -14,7 +14,7 @@ export const routes: Routes = [
             {
                 path: 'config', 
                 loadComponent: () => import('./features/car-config/car-config.component').then(c=>c.CarConfigComponent),
-                // canActivate: [() => Step2Guard()],
+                canActivate: [() => Step2Guard()],
             },
             {
                 path: 'summary', 

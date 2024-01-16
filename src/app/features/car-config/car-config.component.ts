@@ -16,7 +16,7 @@ export class CarConfigComponent implements OnInit {
   
   private carService      = inject(CarService);
   private carStateService = inject(CarStateService); 
-  private destroyRef        = inject(DestroyRef);
+  private destroyRef      = inject(DestroyRef);
 
   configForm      : FormGroup;
   configs?        : CarVariant[];
@@ -25,8 +25,8 @@ export class CarConfigComponent implements OnInit {
   constructor() {
     this.configForm = new FormGroup({
       config: new FormControl(''),
-      towHitch: new FormControl(false),
-      yoke: new FormControl(false)
+      towHitch: new FormControl({ value: false, disabled: true }),
+      yoke: new FormControl({ value: false, disabled: true })
     });
   }
 
@@ -41,7 +41,9 @@ export class CarConfigComponent implements OnInit {
     )
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(options => {
-      this.configs = options.configs;      
+      this.configs = options.configs;
+      if(options.towHitch) this.configForm.get('towHitch')?.enable();
+      if(options.yoke) this.configForm.get('yoke')?.enable();            
       this.configForm.patchValue(options);
     });
   }
