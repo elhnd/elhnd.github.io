@@ -1,0 +1,1 @@
+import{Db as n,P as r,V as i}from"./chunk-PRUGMS2J.js";var a=(()=>{let t=class t{constructor(){this.httpClient=i(n)}getModels(){return this.httpClient.get("/models")}getOption(o){return this.httpClient.get(`/options/${o}`)}};t.\u0275fac=function(p){return new(p||t)},t.\u0275prov=r({token:t,factory:t.\u0275fac,providedIn:"root"});let e=t;return e})();export{a};
