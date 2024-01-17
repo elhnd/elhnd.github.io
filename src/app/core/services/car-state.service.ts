@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { CarColor, CarVariant } from '@core/interfaces';
 import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
-import { CarColor, CarVariant } from '../interfaces';
 
 export interface SelectedModel {
   code        : string      | null;

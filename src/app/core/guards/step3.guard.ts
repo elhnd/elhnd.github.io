@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
-import { CarStateService } from '../services/car-state.service';
 import { map } from 'rxjs';
 import { Router } from '@angular/router';
+import { CarStateService } from '@core/services';
 
 
 export const Step3Guard = () => {
