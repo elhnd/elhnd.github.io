@@ -1,9 +1,8 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CarService } from '../../core/services/car.service';
-import { CarStateService } from '../../core/services/car-state.service';
-import { CarColor, CarModel } from '../../core/interfaces';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CarService, CarStateService } from '@core/services';
+import { CarColor, CarModel } from '@core/interfaces';
 
 @Component({
   selector: 'app-car-model',

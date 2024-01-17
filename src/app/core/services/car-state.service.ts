@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
-import { CarColor } from '../interfaces/car-color.interface';
-import { CarVariant } from '../interfaces/car-variant.interface';
+import { CarColor, CarVariant } from '../interfaces';
 
 export interface SelectedModel {
   code        : string      | null;
@@ -53,7 +52,6 @@ export class CarStateService {
     this.selectedConfigState.next({ ...currentState, config: config.config, towHitch: config.towHitch, yoke: config.yoke });
   }
 
-
   updateSummary(): Observable<Summary> {
     return combineLatest([this.selectedModelState$, this.selectedConfigState$])
       .pipe(
@@ -83,6 +81,4 @@ export class CarStateService {
         })
       );
   }
-  
-
 }

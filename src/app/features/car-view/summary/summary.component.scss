@@ -1,0 +1,16 @@
+.table-custom {
+    border-top: 2px solid #000; /* Bordure noire en haut du tableau */
+}
+
+.table-custom td {
+    font-size: 13px; /* Taille de police réduite */
+    padding: 5px; /* Padding réduit */
+}
+
+.sum {
+    background: var(--form-back-color);
+    color: var(--form-fore-color);
+    border: 0.0625rem solid var(--form-border-color);
+    border-radius: var(--universal-border-radius);
+    padding: calc(1 * var(--universal-padding)) var(--universal-padding);
+}

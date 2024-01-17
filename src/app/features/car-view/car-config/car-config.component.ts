@@ -1,9 +1,9 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { switchMap } from 'rxjs';
-import { CarVariant } from '../../core/interfaces';
-import { SelectedConfig, CarService, CarStateService } from '../../core/services';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CarService, CarStateService, SelectedConfig } from '@core/services';
+import { CarVariant } from '@core/interfaces';
 
 @Component({
   selector: 'app-car-config',

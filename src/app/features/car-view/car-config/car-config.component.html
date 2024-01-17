@@ -1,7 +1,7 @@
 <h2>Step 2: Select your Tesla config and options</h2>
     <div class="row">
     <form [formGroup]="configForm" (change)="updateSelectedConfig()">
-        <div class="col-4 mb-3">
+        <div class="col-4 mb-2">
             <label for="configSelect" class="fs-5">Config:</label>
             <select formControlName="config" id="configSelect" class="form-select fs-5" aria-label="Configuration Select">
                 <option selected>Select a config</option>
@@ -11,12 +11,12 @@
             </select>
         </div>
 
-        <div class="col-12 mb-3 fs-5">
+        <div class="col-12 fs-5">
           @if (selectedConfig) {Range: {{selectedConfig.range}} - Max Speed: {{selectedConfig.speed}} - Cost: {{selectedConfig.price}}}
         </div>
 
         @if(configForm.get('towHitch')?.enabled) {
-            <div class="col-12 mb-3 form-check" style="margin-left: 12px;">
+            <div class="col-12 mb-2 form-check">
                 <label class="form-check-label fs-5" for="includeTow">
                     Tow hitch ? <input formControlName="towHitch"  class="form-check-input" type="checkbox" id="includeTow">
                 </label>
@@ -24,7 +24,7 @@
         }
 
         @if(configForm.get('yoke')?.enabled) {
-            <div class="col-12 mb-3 form-check" style="margin-left: 12px;">
+            <div class="col-12 form-check">
                 <label class="form-check-label fs-5" for="includeYoke">
                     Yoke steering wheel ? <input formControlName="yoke" class="form-check-input" type="checkbox" id="includeYoke">
                 </label>
