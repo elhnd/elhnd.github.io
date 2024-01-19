@@ -19,7 +19,7 @@ export class CarModelComponent implements OnInit {
 
   modelForm     : FormGroup;
   models?       : CarModel[];
-  selectedModel!: CarModel | null;
+  selectedModel?: CarModel;
 
   constructor() {
     this.modelForm = new FormGroup({

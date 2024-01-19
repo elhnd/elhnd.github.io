@@ -9,5 +9,5 @@ import { Component, Input } from '@angular/core';
 })
 export class ImageViewerComponent {
 
-  @Input({required: true}) image?: string | null;
+  @Input({required: true}) image?: string;
 }

@@ -10,13 +10,13 @@ export const Step3Guard = () => {
     const router    = inject(Router);
 
     return carState.selectedConfigState$.pipe(
-        map(config => {
-          if (!config.config) {
-            alert("Select a config car before moving to step 3");
-            router.navigateByUrl("/config");
-            return false;
-          }
-          return true;
-        })
-      );
+      map(config => {
+        if (!config.config) {
+          alert("Select a config car before moving to step 3");
+          router.navigateByUrl("/config");
+          return false;
+        }
+        return true;
+      })
+    );
 }

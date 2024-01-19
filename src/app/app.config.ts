@@ -8,6 +8,6 @@ import { errorsInterceptor } from './core/interceptors/errors.interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideHttpClient(withFetch(),withInterceptors([errorsInterceptor]))
+    provideHttpClient(withFetch(), withInterceptors([errorsInterceptor]))
   ]
 };

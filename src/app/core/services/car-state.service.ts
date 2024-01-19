@@ -5,13 +5,13 @@ import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
 export interface SelectedModel {
   code        : string      | null;
   description : string      | null;
-  color       : CarColor  | null;
+  color       : CarColor    | null;
 }
 
 export interface SelectedConfig {
-  config      : CarVariant | null;
-  towHitch    : boolean      | null;
-  yoke        : boolean      | null;
+  config      : CarVariant  | null;
+  towHitch    : boolean     | null;
+  yoke        : boolean     | null;
 }
 
 export interface Summary {
